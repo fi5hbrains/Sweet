@@ -1,0 +1,54 @@
+#slideshow
+  = render 'slide'
+#details
+  %p.description
+    = @product.description
+  %p
+    = @product.material
+  %p
+    .old_price
+      = number_to_rubles(@product.old_price)
+    .new_price  
+      = number_to_rubles(@product.new_price)
+- if quantity(@product) <= 0
+  .sold 
+    Продано!
+- else
+  #choice
+    = form_for @product.line_items.new, :remote => true do |form|
+      = form.text_field :product_id, :type => :hidden, :value => @product.id
+      %table
+        %tr
+          %th
+            Оставшиеся размеры
+        %tr
+          %td
+            = form.label 'Итальянский/русский:'
+            - @choice.each do |size|
+              = form.check_box :"size#{size}"
+              = form.label "#{size}/#{size+6}"
+              &nbsp
+
+        
+      .actions
+        %table
+          %tr
+            %td
+              = form.submit :'Беру!'
+            %td
+              #notice= notice
+.products
+  %h2 Похожие товары
+  - @current_type.products.filter(@search,@current_type.id).shuffle.reject{|n| n == @product}.first(4).each do |product|
+    - url1 = product.photos.where(:view => 'front').first.photo.url('catalogue')
+    %ins.product
+      .r
+        - path = show_url(:id => product.id)  
+        %a{'href' => path}
+          .catalogue_image{'style' => "background-image:url(#{url1})"}
+        .old_price= number_to_rubles(product.old_price)
+        .new_price= number_to_rubles(product.new_price)
+        %span.delete= 'Продано' if quantity(product) <= 0
+
+= link_to 'Вернуться в каталог', store_path(:type => @product.type_id)
+

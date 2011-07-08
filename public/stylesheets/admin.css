@@ -1,0 +1,63 @@
+.title_box{margin-bottom: 20px;}
+.title {
+  font-size: 2em;
+  font-weight:bold;
+}
+
+#sections {float:left;}
+#catalogue {
+  float:left;
+  padding-left: 30px;
+}
+#current_type, .article {
+  font-size: 1.3em;
+  font-weight:bold;
+}
+
+.order_titles .row{
+  font-weight:bold;
+}
+.row {
+  display:table-row;
+  height: 26px;
+}
+.cell {display:table-cell;}
+.unprocessed, .unprocessed a, .delete, .delete a:link, .delete a:visited {color: #ee3030;}
+.unprocessed a:hover,.delete a:hover { color: #fff; background-color:#ee3030; }
+.date {width: 70px;}
+.address {width: 300px;}
+.name {width: 200px;}
+.phone {width: 145px;}
+
+
+.old_price {text-decoration:line-through;}
+.new_price {
+  font-weight:bold;
+  font-size: 1em;  
+}
+td {padding-right: 10px;}
+th {text-align: left;}
+
+.product_show table {text-align: center;}
+#sections tr {height: 26px;}
+
+.description { max-width: 550px;}
+
+.catalogue_image {
+  display: block;
+  width: 100px;
+  height: 320px;
+  background-position: center;
+  box-shadow:0 2px 16px 0 #EEE;
+  border-radius: 10px;
+}
+.thumb_image {
+  float:left;
+  width: 32px;
+  height: 41px;
+  margin: 2px 3px;
+  background-position: center;
+  box-shadow:0 2px 10px 0 #ccc;
+  border-radius: 5px;
+}
+

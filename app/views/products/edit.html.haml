@@ -1,0 +1,8 @@
+.title_box
+  .title Изменение товара
+
+= render 'form' 
+
+= link_to 'Изменить', edit_product_path(@product) 
+|
+= link_to 'Вернуться в каталог', types_path(:type_id => @product.type_id)

@@ -1,0 +1,11 @@
+= tag_style_if('div', {:class => 'unprocessed'}, order.processed == false ) do
+  = link_to order do
+    .row
+      .cell.date
+        = order.created_at.strftime("%d.%m.%y")
+      .cell.address
+        = order.address[0..54].strip
+        = "..." if order.address.length > 55
+      .call.name= order.name[0..39].strip
+      .cell.phone= order.phone
+

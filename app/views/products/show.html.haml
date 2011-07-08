@@ -1,0 +1,67 @@
+#notice= notice
+.title_box
+  .title= @product.type.section
+%p
+  %b Артикул:
+  = @product.article
+
+.product_show
+  %table
+    %tr
+      %th
+        Вид спереди
+      %th
+        Вид сзади
+      %th
+        Деталь
+    %tr
+      %td
+        - if @front
+          .catalogue_image{"style" => "background-image:url(#{@front.photo.url(:catalogue)})"}
+          .delete= link_to 'Удалить', @front, :confirm => 'Вы уверены?', :method => :delete
+        - else
+          = render :partial => "photos/form", :locals => { :product => @product.id, :photo => @product.photos.new, :view => 'front' }
+      %td
+        - if @back
+          .catalogue_image{"style" => "background-image:url(#{@back.photo.url(:catalogue)})"}
+          .delete= link_to 'Удалить', @back, :confirm => 'Вы уверены?', :method => :delete
+        - else
+          = render :partial => "photos/form", :locals => { :product => @product.id, :photo => @product.photos.new, :view => 'back' }
+      %td
+        - if @detail
+          .catalogue_image{"style" => "background-image:url(#{@detail.photo.url(:catalogue)})"}
+          .delete= link_to 'Удалить', @detail, :confirm => 'Вы уверены?', :method => :delete
+        - else
+          = render :partial => "photos/form", :locals => { :product => @product.id, :photo => @product.photos.new, :view => 'detail' }
+  
+%p.description
+  %b Описание:
+  = @product.description
+
+%p
+  %b Состав:
+  = @product.material
+
+%p
+  %table
+    %tr
+      %td
+        %b Размеры:
+      - (36..52).step(2).each do |i|
+        - q = "size#{i}"
+        - if @product[:"#{q}"] > 0
+          %td
+            %b= i
+            = " - #{@product[:"#{q}"]}шт."
+      - if quantity(@product) <= 0
+        %td.delete Продано! 
+%p
+  %b Цена:
+  %span.old_price= number_to_rubles(@product.old_price)
+  %span.new_price= number_to_rubles(@product.new_price)
+%br
+= link_to 'Изменить', edit_product_path(@product, :type_id => @product.type_id) 
+|
+= link_to 'Добавить еще один', new_product_path(:type_id => @product.type_id)
+|
+= link_to 'Вернуться в каталог', types_path(:type_id => @product.type_id)

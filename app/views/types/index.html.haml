@@ -1,0 +1,44 @@
+
+#sections
+  %p.title_box
+    %span.title Разделы
+    = link_to 'Добавить раздел', new_type_path
+  %table
+    %tr
+      - if params["order"] == 'all'
+        %td
+          %span#current_type Заказы
+          %span.delete= @unprocessed if @unprocessed > 0
+      - else
+        %td
+          %span.section= link_to 'Заказы', types_path(:order => 'all') 
+          %span.delete= @unprocessed if @unprocessed > 0
+
+    = render(@types)  
+
+- if @type
+  #catalogue 
+    %p.title_box
+      %span.title= @type.section
+      = link_to 'Добавить товар', new_product_path(:type_id => @type.id)
+    %table
+      .products= render(@products)
+    %p= will_paginate @products
+- if params["order"] == 'all'
+  #catalogue 
+    %p.title_box
+      %span.title Заказы
+    .order_titles
+      .row
+        .cell.date
+          Дата
+        .cell.address
+          Адрес
+        .cell.name
+          Имя
+        .cell.phone
+          Телефон
+    = render(@orders)
+    %p= will_paginate @orders
+
+

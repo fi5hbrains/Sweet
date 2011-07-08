@@ -1,0 +1,18 @@
+.product
+  %tr
+    %td
+      .article= link_to product.article, product
+    %td
+      - product.photos.each do |image|
+        .thumb_image{"style" => "background-image:url(#{image.photo.url(:thumb)})"}
+    %td
+      .old_price= number_to_rubles(product.old_price)
+      .new_price= number_to_rubles(product.new_price)
+    %td
+      = link_to 'Показать', product
+    %td  
+      = link_to 'Изменить', edit_product_path(product, :type_id => product.type_id)
+    %td
+      %span.delete= link_to 'Удалить', product, :confirm => 'Вы уверены?', :method => :delete
+    - if quantity(product) == 0
+      %td.delete Продано! 

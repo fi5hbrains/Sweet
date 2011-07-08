@@ -1,0 +1,46 @@
+!!!
+%html{ html_attrs('ru') }
+  %head
+    %title Sweetsize
+    = stylesheet_link_tag "scaffold" 
+    = stylesheet_link_tag "store", :media => "all" 
+    = javascript_include_tag :defaults
+    = csrf_meta_tag
+  %body
+    #sections
+      .types
+        - @types.each do |type|
+          = tag_style_if('p', {:id => 'current_type'}, type == @current_type) do
+            - if type == @current_type
+              - if @product
+                = link_to type.section+'<', store_path(:type => type.id)
+              - else
+                = type.section
+            - else
+              = link_to type.section, store_path(:type => type.id)
+      .search
+        - if params[:slide]
+          - path = show_url(:id => @product.id)          
+        - else
+          - path = store_path
+
+          
+        - form_tag path, :method => 'get' do
+          = hidden_field_tag :type, params[:type] if params[:type]
+          - search = {}
+          - sizes.each do |size|
+            .size_field
+              = size[4,5]
+              = check_box_tag :"#{size}", session[:"#{size}"], session[:"#{size}"]
+          .submit= submit_tag 'Найти', :name => 'search'
+        = form_tag path, :method => 'get' do
+          = hidden_field_tag :type, params[:type] if params[:type]
+          .submit= submit_tag 'Сбросить', :name => 'search'
+    #store
+      = yield
+    #side_bar
+      = hidden_div_if(@cart.line_items.empty?, :id => 'cart') do
+        = render(@cart)
+    - if admin?
+      #admin= link_to 'Склад', admin_url
+      #logout= link_to 'Выйти', logout_url

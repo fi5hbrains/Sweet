@@ -1,0 +1,23 @@
+%h1 Ваш заказ
+#order
+  .products
+  - @cart.line_items.each do |item|
+    %ins.product
+      .r
+        .catalogue_image{"style" => "background-image:url(#{item.product.photos.find_by_view('front').photo.url(:catalogue)})"}
+        .new_price= number_to_rubles(item.product.new_price)
+        .sizes
+          - sizes.each do |size|
+            - if item[:"#{size}"] > 0
+              %b= size[4,5] 
+              - if item[:"#{size}"] > 1
+                &times;
+                = item[:"#{size}"] 
+        = link_to 'Удалить', line_item_path(item, :redirect => 'order'), :method => :delete
+
+  .total
+    Всего: #{ number_to_rubles(total_price(@cart)) }
+#form
+  = render 'form' 
+
+= link_to 'Оформить позже', :back

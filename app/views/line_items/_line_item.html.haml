@@ -1,0 +1,11 @@
+= tag_style_if('tr', {:id => 'current_item'}, line_item == @current_item) do
+  %td
+    = quantity(line_item)      
+    &times;
+  %td
+    .thumb_image{"style" => "background-image:url(#{line_item.product.photos.first.photo.url(:thumb)})"}
+  %td
+    = number_to_rubles(item_total_price(line_item))
+  %td
+    = button_to 'Удалить', line_item, :method => :delete
+

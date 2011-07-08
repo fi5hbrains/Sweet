@@ -1,0 +1,16 @@
+- form_for photo, :html => { :multipart => true } do |form| 
+  - if photo.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(photo.errors.count, "error")} prohibited this photo from being saved:"
+
+      %ul
+        - photo.errors.full_messages.each do |msg|
+          %li= msg
+
+  = form.text_field :product_id, :type => :hidden, :value => product
+  = form.text_field :view, :type => :hidden, :value => view
+
+  .field
+    = form.file_field :photo
+  .actions
+    = form.submit :Загрузить

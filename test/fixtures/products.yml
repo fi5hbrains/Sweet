@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  type: MyString
+  description: MyText
+  material: MyString
+  old_price: 9.99
+  new_price: 9.99
+  article: MyString
+
+two:
+  type: MyString
+  description: MyText
+  material: MyString
+  old_price: 9.99
+  new_price: 9.99
+  article: MyString

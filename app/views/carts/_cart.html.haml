@@ -1,0 +1,12 @@
+.title Ваши покупки
+%table
+  = render(cart.line_items)
+  %tr
+    %td
+    %td
+      Всего:
+    %td  
+      = number_to_rubles(total_price(cart))
+
+= button_to 'Оформить заказ', new_order_path, :method => :get 
+= button_to 'Очистить корзину', cart, :method => :delete

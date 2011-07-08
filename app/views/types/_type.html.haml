@@ -1,0 +1,10 @@
+%tr 
+  %td{'style' => 'width: 110px'}
+    - if @type && type.id == @type.id
+      %span#current_type= type.section
+    - else
+      %span.section= link_to type.section, types_path(:type_id => type.id)
+  %td
+    = link_to 'Переименовать', edit_type_path(type)
+  %td
+    %span.delete= link_to 'Удалить', type, :confirm => 'Вы уверены? Все товары в этом разделе так же будут удалены', :method => :delete

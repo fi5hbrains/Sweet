@@ -1,0 +1,32 @@
+-if notice
+  %p#notice= notice
+- if @current_type
+  %h2= @current_type.section
+  .products
+    - @products.each do |product|
+      - url1 = product.photos.where(:view => 'front').first.photo.url('catalogue')
+      %ins.product
+        .r
+          - path = show_url(:id => product.id)  
+          %a{'href' => path}
+            .catalogue_image{'style' => "background-image:url(#{url1})"}
+          .old_price= number_to_rubles(product.old_price)
+          .new_price= number_to_rubles(product.new_price)
+          %span.delete= 'Продано' if quantity(product) <= 0
+    %p= will_paginate @products
+- else
+  - @types.each do |type| 
+    - if type.products.filter(@search,type.id).count >0
+      %h2= type.section
+      .products
+        - type.products.filter(@search,type.id).limit(8).each do |product|
+          - url1 = product.photos.where(:view => 'front').first.photo.url('catalogue')
+          %ins.product
+            .r
+              - path = show_url(:id => product.id)  
+              %a{'href' => path}
+                .catalogue_image{'style' => "background-image:url(#{url1})"}
+              .old_price= number_to_rubles(product.old_price)
+              .new_price= number_to_rubles(product.new_price)
+              %span.delete= 'Продано' if quantity(product) <= 0
+    %br

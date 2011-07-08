@@ -1,0 +1,47 @@
+%p#notice= notice 
+.items
+  Заказ <b>№#{@order.id}</b> получен 
+  
+  - if @order.created_at.day == Time.now.day
+    = time_ago_in_words(@order.created_at)+" назад"
+  - else
+    = @order.created_at.strftime("%d.%m.%y")
+ 
+  %p
+    - @order.line_items.each do |item|
+      .item
+        .thumb_image{"style" => "background-image:url(#{item.product.photos.find_by_view('front').photo.url(:catalogue)})"}
+        Артикул:
+        %b= item.product.article
+        %br
+        Цена:
+        = number_to_rubles(item.product.new_price)
+        %br
+        Размеры:
+        - sizes.each do |size|
+          - if item[:"#{size}"] > 0
+            %b= size[4,5] 
+            - if item[:"#{size}"] > 1
+              &times;
+              = item[:"#{size}"] 
+
+
+#details
+  %p
+    Итого:
+    %b= number_to_rubles(total_price(@order))
+  %p
+    %h2
+      = @order.name
+      = @order.phone
+  %p
+    = @order.address
+  %p
+    = mail_to @order.email
+.items    
+  = form_for @order do |f| 
+    = f.check_box :processed
+    = f.label 'Заказ обработан'
+    = f.submit 'Применить'
+  = button_to 'Отменить заказ', @order, :confirm => 'Вы уверены?', :method => :delete
+  = link_to 'Назад', types_path( :order => 'all') 

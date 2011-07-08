@@ -1,0 +1,48 @@
+= form_for(@product) do |f|
+  - if @product.errors.any? 
+    #error_explanation
+      %h2 #{pluralize(@product.errors.count, "error")} prohibited this product from being saved:
+
+      %ul
+      - @product.errors.full_messages.each do |msg|
+        %li= msg
+
+  = hidden_field_tag :type_id, params[:type_id]
+  = f.text_field :type_id, :type => :hidden, :value => params[:type_id]
+
+  .field
+    = f.label :Артикул
+    = f.text_field :article
+
+  .field
+    = f.label :Описание
+    %br
+    = f.text_area :description
+  .field
+    = f.label :Состав
+    = f.text_field :material
+  %table
+    %tr
+      %td
+        Итальянский размер
+      - (36..52).step(2).each do |i|
+        %th
+          = i
+    %tr
+      %td
+        Количество
+      - (36..52).step(2).each do |i|
+        - field = "size#{i}"
+        %td
+          = f.text_field :"#{field}", :size => 2
+    
+  %br      
+  .field
+    = f.label :'Старая цена'
+    = f.text_field :old_price
+  .field
+    = f.label :'Новая цена'
+    = f.text_field :new_price
+  .actions
+    = f.submit :'Применить'
+
