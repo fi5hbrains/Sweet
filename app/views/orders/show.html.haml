@@ -42,6 +42,6 @@
   = form_for @order do |f| 
     = f.check_box :processed
     = f.label 'Заказ обработан'
-    = f.submit 'Применить'
+    = f.submit 'Apply'
   = button_to 'Отменить заказ', @order, :confirm => 'Вы уверены?', :method => :delete
   = link_to 'Назад', types_path( :order => 'all') 

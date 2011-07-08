@@ -51,7 +51,7 @@ class LineItemsController < ApplicationController
         format.js { @current_item = @line_item }
         format.xml  { render :xml => @line_item, :status => :created, :location => @line_item }
       else
-        format.html { redirect_to(show_url(@line_item.product_id), :notice => 'Выберите, пожалуйста, размер.') }
+        format.html { redirect_to(show_url(@line_item.product_id), :notice => 'Choose a size,please.') }
         format.xml  { render :xml => @line_item.errors, :status => :unprocessable_entity }
       end
     end

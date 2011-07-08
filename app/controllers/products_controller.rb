@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to(@product, :notice => 'Товар успешно создан.') }
+        format.html { redirect_to(@product, :notice => 'Created successfully.') }
         format.xml  { render :xml => @product, :status => :created, :location => @product }
       else
         format.html { render :action => "new", :type_id => @product.type_id }

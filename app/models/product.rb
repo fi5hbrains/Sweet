@@ -27,7 +27,7 @@ class Product < ActiveRecord::Base
       if line_items.count.zero?
         return true
       else
-        errors.add(:base, 'Этот товар заказан')
+        errors.add(:base, 'This Item is ordered')
         return false
       end
     end

@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
   def new
     @cart = current_cart
     if @cart.line_items.empty?
-      redirect_to store_url, :notice => 'Ваша карзина пуста.'
+      redirect_to store_url, :notice => 'Your cart is empty.'
       return
     end
     @order = Order.new
@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        format.html { redirect_to(store_url, :notice => 'Спасибо! Ваш заказ принят.') }
+        format.html { redirect_to(store_url, :notice => 'Thank you! Your order was accepted.') }
       else
         format.html { render :action => "new" }
       end
@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    if params[:commit] == 'Применить'
+    if params[:commit] == 'Apply'
       if params[:order][:processed] == '1'
         @order.remove
       else

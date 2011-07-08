@@ -1,6 +1,6 @@
 module ApplicationHelper
   def number_to_rubles(number)
-    number_to_currency(number, :unit => "р.", :separator => ",", :delimiter => "", :format => "%n %u")
+    number_to_currency(number, :unit => "p.", :separator => ",", :delimiter => "", :format => "%n %u")
   end
 
   def quantity(product)
